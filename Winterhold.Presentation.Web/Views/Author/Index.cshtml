@@ -1,0 +1,59 @@
+﻿@model AuthorIndexViewModel
+
+<div class="filter-form">
+    <form class="filter" method="get" asp-action="Index">
+        <label>Name</label>
+        <input type="text" asp-for="Name">
+        <input type="submit" value="Search">
+    </form>
+</div>
+<div>
+    <a asp-action="Insert" class="button">Add New Author</a>
+</div>
+<div class="container">
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th>Full Name</th>
+                <th>Age</th>
+                <th>Status</th>
+                <th>Education</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var author in Model.Authors)
+            {
+                <tr>
+                    <td>
+                        <a class="button detail-button" asp-action="Details" asp-route-id="@author.Id">Books</a>
+                        <a class="button update-button" asp-action="Update" asp-route-id="@author.Id">Edit</a>
+                        <a class="button delete-button" asp-action="Delete" asp-route-id="@author.Id" onclick="return showConfirmation('Author','Delete', @author.Id)">Delete</a>
+                    </td>
+                    <td>@author.FullName</td>
+                    <td>@author.Age</td>
+                    <td>@author.DeceasedStatus</td>
+                    <td>@author.Education</td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="5">
+                    <div class="pagination">
+                        <div>page @Model.PaginationInfo.PageNumber of @Model.PaginationInfo.TotalPagination</div>
+                        <div>
+                            @for (int i = 1; i <= Model.PaginationInfo.TotalPagination; i++)
+                            {
+                                <a asp-route-name="@Model.Name" asp-route-pageNumber="@i">@i</a>
+                            }
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+<script>
+
+</script>

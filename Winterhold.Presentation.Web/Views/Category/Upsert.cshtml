@@ -1,0 +1,50 @@
+﻿@*@model CategoryUpsertViewModel*@
+
+<form class="upsert-form" id="category-upsert-form">
+    <table>
+        <tbody>
+            <tr>
+                <td>
+                    <label for="Name">Category Name *</label>
+                </td>
+                <td>
+                    <input type="text" id="Name" name="Name">
+                    <span class="validation" validation-for="Name"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="Floor">Floor *</label>
+                </td>
+                <td>
+                    <input type="number" min="1" value="0" id="Floor" name="Floor" >
+                    <span class="validation" validation-for="Floor"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="Isle">Isle *</label>
+                </td>
+                <td>
+                    <input type="text" id="Isle" name="Isle">
+                    <span class="validation" validation-for="Isle"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="Bay">Bay *</label>
+                </td>
+                <td>
+                    <input type="text" id="Bay" name="Bay">
+                    <span class="validation" validation-for="Bay"></span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <button type="submit">Submit</button>
+                    <button type="button" class="close-button">Close</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</form>

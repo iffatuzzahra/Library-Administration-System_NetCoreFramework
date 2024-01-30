@@ -1,0 +1,66 @@
+﻿@model CategoryIndexViewModel
+
+<div class="filter-form">
+    <form class="filter" method="get" asp-action="Index">
+        <label>Name</label>
+        <input type="text" asp-for="Name">
+        <button type="submit">Search</button>
+    </form>
+</div>
+<div>
+    <button class="insert-button" id="category-insert-button">Add New Category</button>
+</div>
+<div class="container">
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th>Category</th>
+                <th>Floor</th>
+                <th>Isle</th>
+                <th>Bay</th>
+                <th>TotalBooks</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var category in Model.CategoriesSummary)
+            {
+                <tr>
+                    <td>
+                        <a class="button detail-button" asp-controller="Book" asp-action="Index" asp-route-name="@category.Name">Books</a>
+                        <button class="button update-button popup-button" id="category-update-button" data-name="@category.Name">Edit</button>
+                        <a class="button delete-button" asp-action="Delete" asp-route-name="@category.Name" >Delete</a>
+                    </td>
+                    <td>@category.Name</td>
+                    <td>@category.Floor</td>
+                    <td>@category.Isle</td>
+                    <td>@category.Bay</td>
+                    <td>@category.TotalBooks</td>
+                </tr>
+            }
+
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="6">
+                    <div class="pagination">
+                        <div>page @Model.PaginationInfo.PageNumber of @Model.PaginationInfo.TotalPagination</div>
+                        <div>
+                            @for (int i = 1; i <= Model.PaginationInfo.TotalPagination; i++)
+                            {
+                                <a asp-route-name="@Model.Name" asp-route-pageNumber="@i">@i</a>
+                            }
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+<div class="modal-layer">
+    <div class="popup-dialog">
+        <div class="upsert-form">
+            <partial name="Upsert">
+        </div>
+    </div>
+</div>

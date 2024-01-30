@@ -1,0 +1,109 @@
+﻿@model BookIndexViewModel
+<div>
+    <a asp-controller="Category" asp-action="Index" class="button">Back To Category</a>
+</div>
+<div class="filter-form">
+    <form class="filter" method="get">
+        <table> 
+            <tr>
+                <td>Title</td>
+                <td><input type="text" asp-for="Title" /></td>
+            </tr>
+            <tr>
+                <td>Author</td>
+                <td><input type="text" asp-for="Author" /></td>
+            </tr>
+            <tr>
+                <td>Availability Status</td>
+                <td>
+                    @*<input type="checkbox" asp-for="IsAvailable"/> IsAvailable*@
+                    @*<select name="IsAvailable" asp-for="IsAvailable" asp-items="@Model.AvailableItems">*@
+                    <select name="IsAvailable" asp-for="IsAvailable" >
+                        <option value="" selected="selected">All</option>
+                        <option value="true">Available Book</option>
+                        <option value="false">Not Available Book</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <input type="hidden" asp-for="CategoryName" />
+                <td colspan="2"><button type="submit">Submit</button> 
+                    @*<a class="button" asp-action="Index" asp-route-name="@Model.CategoryName">All @Model.CategoryName Book</a>*@
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<div>
+    <h2>List Of @Model.CategoryName</h2>
+    <a asp-action="Insert" class="button" asp-route-name="@Model.CategoryName">Add New @Model.CategoryName Book</a>
+</div>
+<div class="container">
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th>Book Title</th>
+                <th>Author</th>
+                <th>Is Borrowed</th>
+                <th>Release Date</th>
+                <th>Total Page</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var book in Model.Books)
+            {
+                <tr>
+                    <td>
+                        @if(book.Summary != null)
+                        {
+                            <button class="button summary-button popup-button" data-summary="@book.Summary">Summary</button>
+                        }
+                        <a class="button update-button" asp-action="Update" asp-route-code="@book.Code">Edit</a>
+                        <a class="button delete-button" asp-action="Delete" asp-route-code="@book.Code" asp-route-name="@Model.CategoryName">Delete</a>
+                        @*onclick="return showConfirmation('Book','Delete', '@book.Code?name=@Model.CategoryName')"*@
+                    </td>
+                    <td>@book.Title</td>
+                    <td>@book.AuthorFullName</td>
+                    <td>@book.IsBorrowed</td>
+                    <td>@if (book.ReleaseDate != null)
+                        {
+                            @book.ReleaseDate.GetValueOrDefault().ToString("dd/MM/yyyy")
+                        }
+                    </td>
+                    <td>@book.TotalPage</td>
+                </tr>
+            }
+
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="6">
+                    <div class="pagination">
+                        <div>page @Model.PaginationInfo.PageNumber of @Model.PaginationInfo.TotalPagination</div>
+                        <div>
+                            @for (int i = 1; i <= Model.PaginationInfo.TotalPagination; i++)
+                            {
+                                <a asp-route-name="@Model.CategoryName"
+                                   asp-route-title="@Model.Title" 
+                                   asp-route-author="@Model.Author" 
+                                   asp-route-isAvailable="@Model.IsAvailable"
+                                   asp-route-pageNumber="@i">@i</a>
+                            }
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+<div class="modal-layer">
+    <div class="popup-dialog">
+        <header>
+            <button class="close-button">X</button>
+        </header>
+        <div class="detail-dialog">
+
+        </div>
+    </div>
+</div>

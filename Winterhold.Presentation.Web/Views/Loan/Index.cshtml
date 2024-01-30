@@ -1,0 +1,122 @@
+﻿@model LoanIndexViewModel
+
+<div class="filter-form">
+    <form class="filter" method="get">
+        <table>
+            <tr>
+                <td>Book Title</td>
+                <td><input asp-for="Title" /></td>
+            </tr>
+            <tr>
+                <td>Customer Name</td>
+                <td><input asp-for="Name" /></td>
+            </tr>
+            <tr>
+                @*<td colspan="2"><input type="checkbox" asp-for="IsDuePass" /> Pass due date</td>*@
+                <td>Due Date Passing Status</td>
+                <td>
+                    <select name="IsDuePass" asp-for="IsDuePass">
+                        <option value="" selected="selected">All</option>
+                        <option value="true">Due Already Pass</option>
+                        <option value="false">Due Not Pass</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit" value="Search">
+                </td>
+            </tr>
+        </table>
+
+    </form>
+</div>
+<div>
+    <button class="button insert-button" id="loan-insert-button">Add Loan</button>
+</div>
+<div class="container">
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th>Book Title</th>
+                <th>Customer Name</th>
+                <th>Loan Date</th>
+                <th>Due Date</th>
+                <th>Return Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var loan in Model.Loans)
+            {
+                <tr>
+                    <td>
+                        <button class="button detail-button detail-loan-button" @*asp-action="Detail" asp-route-id="@loan.Id"*@ data-id="@loan.Id">Detail</button>
+                        @if (@loan.ReturnDate == null)
+                        {
+                            <button class="button update-button update-loan-button" @*asp-action="Update" asp-route-id="@loan.Id"*@ data-id="@loan.Id">Edit</button>
+                            <a class="button return-button" asp-action="ReturnLoanBook" asp-route-id="@loan.Id">Return</a>
+                        }
+                    </td>
+                    <td>@loan.BookTitle</td>
+                    <td>@loan.CustomerName</td>
+                    <td>@loan.LoanDate.ToString("dd/MM/yyyy")</td>
+                    <td>@loan.DueDate.ToString("dd/MM/yyyy")</td>
+                    <td>@if (loan.ReturnDate != null)
+                        {
+                            @loan.ReturnDate.GetValueOrDefault().ToString("dd/MM/yyyy")
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="6">
+                    <div class="pagination">
+                        <div>page @Model.PaginationInfo.PageNumber of @Model.PaginationInfo.TotalPagination</div>
+                        <div>
+                            @for (int i = 1; i <= Model.PaginationInfo.TotalPagination; i++)
+                            {
+                                <a asp-route-name="@Model.Name" 
+                                asp-route-title="@Model.Title"
+                                asp-route-isDuePass="@Model.IsDuePass"
+                                asp-route-pageNumber="@i">@i</a>
+                            }
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+<div class="modal-layer">
+    <div class="popup-dialog">
+        <div class="upsert-form" id="loan-upsert-form">
+            <partial name="Upsert">
+        </div>
+        <div class="loan-detail">
+            <div>
+                <div class="detail-dialog loan-book-detail">
+                    <h3>Book</h3>
+                    <table >
+                        <tbody>
+                            
+                        </tbody>
+                    </table>
+                </div>
+                <div class="detail-dialog loan-customer-detail">
+                    <h3>Customer</h3>
+                    <table>
+                        <tbody>
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div>
+                <button class="close-button" type="button">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,47 @@
+﻿<form>
+    <table>
+        <tbody>
+            <tr>
+                <td><label>Customer *</label></td>
+                <td>
+                    <select name="CustomerNumber" id="CustomerNumber">
+                    </select>
+                    <span class="validation" validation-for="CustomerNumber"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><label>Book *</label></td>
+                <td>
+                    <select name="BookCode" id="BookCode">
+                        <option value=""></option>
+                    </select>
+                    <span class="validation" validation-for="BookCode"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><label>Loan Date *</label></td>
+                <td>
+                    <input type="date" name="LoanDate" id="LoanDate" >
+                    <span class="validation" validation-for="LoanDate"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><label>Note</label></td>
+                <td>
+                    <input type="text" name="Note" id="Note" />
+                </td>
+            </tr>
+
+        </tbody>
+        <tfoot>
+            <tr colspan="2">
+                <td>
+                    <input type="hidden" name="Id" id="Id" />
+
+                    <input type="submit" value="Submit" class="button" />
+                    <button type="button" class="close-button">Close</button>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</form>

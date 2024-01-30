@@ -1,0 +1,83 @@
+﻿@model AuthorBooksIndexViewModel
+<div>
+    <a asp-action="Index" class="button">Back To Author Index</a>
+</div>
+<div>
+    <table>
+        <tbody>
+            <tr>
+                <td>Name</td>
+                <td>@Model.FullName</td>
+            </tr>
+            <tr>
+                <td>Birth Date</td>
+                <td>@Model.BirthDate.ToString("dd MMMM yyyy")</td>
+            </tr>
+            <tr>
+                <td>Decease Date</td>
+                <td>@if (Model.DeceasedDate != null)
+                    {
+                        @Model.DeceasedDate.GetValueOrDefault().ToString("dd MMMM yyyy")
+                    } else
+                    {
+                        <span>-</span>
+                    }
+                </td>
+
+            </tr>
+            <tr>
+                <td>Education</td>
+                <td>@Model.Education</td>
+            </tr>
+            <tr>
+                <td>Summary</td>
+                <td>@Model.Summary</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="container">
+    <table>
+        <thead>
+            <tr>
+                <th>Book Title</th>
+                <th>Category</th>
+                <th>Is Borrowed</th>
+                <th>Release Date</th>
+                <th>Total Page</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var book in Model.Books)
+            {
+                <tr>
+                    <td>@book.Title</td>
+                    <td>@book.CategoryName</td>
+                    <td>@book.IsBorrowed</td>
+                    <td>
+                        @if (book.ReleaseDate != null)
+                        {
+                            @book.ReleaseDate.GetValueOrDefault().ToString("dd/MM/yyyy")
+                        }
+                    </td>
+                    <td>@book.TotalPage</td>
+                </tr>    
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="5">
+                    <div class="pagination">
+                        <div>page @Model.PaginationInfo.PageNumber of @Model.PaginationInfo.TotalPagination</div>
+                        <div>
+                            @for (int i = 1; i <= Model.PaginationInfo.TotalPagination; i++)
+                            {
+                                <a asp-route-id="@Model.Id" asp-route-pageNumber="@i">@i</a>
+                            }
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>

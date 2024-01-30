@@ -1,0 +1,93 @@
+﻿@model CustomerIndexViewModel
+
+<div class="filter-form">
+    <form class="filter" method="get">
+        <table>
+            <tr>
+                <td>Number</td>
+                <td><input asp-for="Number" /></td>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td><input asp-for="Name" /></td>
+            </tr>
+            <tr>
+                @*<td colspan="2"><input type="checkbox" asp-for="IsExpired" /> Membership Already Expired</td>*@
+                <td>Membership Expired Status</td>
+                <td>
+                    <select name="IsExpired" asp-for="IsExpired">
+                        <option value="" selected="selected">All</option>
+                        <option value="true">Already Expired</option>
+                        <option value="false">Not Expired Yet</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="submit" value="Search"></td>
+            </tr>
+        </table>
+    </form>
+</div>
+<div>
+    <a asp-action="Insert" class="button">Add New Customer</a>
+</div>
+<div class="container">
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th>Membership Number</th>
+                <th>Full Name</th>
+                <th>Expire Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var customer in Model.Customers)
+            {
+                <tr>
+                    <td>
+                        <a class="button update-button" asp-action="Update" asp-route-number="@customer.MembershipNumber">Edit</a>
+                        <a class="button delete-button" asp-action="Delete" asp-route-number="@customer.MembershipNumber">Delete</a>
+                        <a class="button extend-button" asp-action="ExtendMembership" asp-route-number="@customer.MembershipNumber">Extend</a>
+                    </td>
+                    <td class="membership-detail">@customer.MembershipNumber</td>
+                    <td>@customer.FullName</td>
+                    <td>@customer.MembershipExpireDate.ToString("dd/MM/yyyy")</td>
+                </tr>
+            }
+
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="5">
+                    <div class="pagination">
+                        <div>page @Model.PaginationInfo.PageNumber of @Model.PaginationInfo.TotalPagination</div>
+                        <div>
+                            @for (int i = 1; i <= Model.PaginationInfo.TotalPagination; i++)
+                            {
+                                <a asp-route-name="@Model.Name"
+                                asp-route-number="@Model.Number"
+                                asp-route-isExpired="@Model.IsExpired"
+                                asp-route-pageNumber="@i">@i</a>
+                            }
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+<div class="modal-layer">
+    <div class="popup-dialog">
+        <header>
+            <button class="close-button">X</button>
+        </header>
+        <div class="detail-dialog">
+            <table>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

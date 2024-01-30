@@ -1,0 +1,78 @@
+﻿@model AuthorUpsertViewModel
+
+<form method="post">
+    <table>
+        <tbody>
+            <tr>
+                <td>
+                    <label asp-for="Title">Title *</label>
+                </td>
+                <td>
+                    <input asp-for="Title">
+                    <span asp-validation-for="Title"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="FirstName">First Name *</label>
+                </td>
+                <td>
+                    <input asp-for="FirstName">
+                    <span asp-validation-for="FirstName"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="LastName">Last Name</label>
+                </td>
+                <td>
+                    <input asp-for="LastName">
+                    <span asp-validation-for="LastName"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="BirthDate">Birth Date *</label>
+                </td>
+                <td>
+                    <input asp-for="BirthDate" type="date">
+                    <span asp-validation-for="BirthDate"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="DeceasedDate">Decease Date</label>
+                </td>
+                <td>
+                    <input asp-for="DeceasedDate" type="date">
+                    <span asp-validation-for="DeceasedDate"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="Education">Education</label>
+                </td>
+                <td>
+                    <input asp-for="Education">
+                    <span asp-validation-for="Education"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="Summary">Summary</label>
+                </td>
+                <td>
+                    <textarea asp-for="Summary"></textarea>
+                    <span asp-validation-for="Summary"></span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="hidden" asp-for="Id"/>
+                    <input type="submit" class="button" value="Submit"/>
+                    <a asp-action="Index" class="button">Back To Index</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</form>

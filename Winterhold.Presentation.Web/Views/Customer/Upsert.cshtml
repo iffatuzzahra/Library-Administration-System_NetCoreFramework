@@ -1,0 +1,87 @@
+﻿@model CustomerUpsertViewModel
+
+<form method="post">
+    <table>
+        <tbody>
+            <tr>
+                <td>
+                    <label asp-for="MembershipNumber">Membership Number*</label>
+                </td>
+                <td>
+                    @if(Model.MembershipNumber != null)
+                    {
+                        <input asp-for="MembershipNumber" readonly="readonly">
+                    } else
+                    {
+                        <input asp-for="MembershipNumber">
+                    }
+                    <span asp-validation-for="MembershipNumber"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="FirstName">First Name *</label>
+                </td>
+                <td>
+                    <input asp-for="FirstName">
+                    <span asp-validation-for="FirstName"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="LastName">Last Name</label>
+                </td>
+                <td>
+                    <input asp-for="LastName">
+                    <span asp-validation-for="LastName"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="BirthDate">Birth Date *</label>
+                </td>
+                <td>
+                    <input asp-for="BirthDate" type="date">
+                    <span asp-validation-for="BirthDate"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="Gender">Gender *</label>
+                </td>
+                <td>
+                    <label for="Male">Male</label>
+                    <input asp-for="Gender" type="radio" value="Male" id="Male"/>
+
+                    <label for="Female">Female</label>
+                    <input asp-for="Gender" type="radio" value="Female" id="Female"/>
+                    <span asp-validation-for="Gender"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="Phone">Phone</label>
+                </td>
+                <td>
+                    <input asp-for="Phone">
+                    <span asp-validation-for="Phone"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="Address">Address</label>
+                </td>
+                <td>
+                    <textarea asp-for="Address"></textarea>
+                    <span asp-validation-for="Address"></span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit" value="Sumbit"/>
+                    <a asp-action="Index" class="button">Back To Index</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</form>

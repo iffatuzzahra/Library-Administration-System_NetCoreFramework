@@ -1,0 +1,84 @@
+﻿@model BookUpsertIndexViewModel
+
+<form method="post">
+    <table>
+        <tbody>
+            <tr>
+                <td>
+                    <label asp-for="Book.Code">Code *</label>
+                </td>
+                <td>
+                    @if (Model.Book.Code != null)
+                    {
+                        <input asp-for="Book.Code" readonly="readonly">
+                    } else
+                    {
+                        <input asp-for="Book.Code">
+                    }
+                    <span asp-validation-for="Book.Code"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="Book.Title">Title *</label>
+                </td>
+                <td>
+                    <input asp-for="Book.Title">
+                    <span asp-validation-for="Book.Title"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="Book.CategoryName">Category</label>
+                </td>
+                <td>
+                    <input asp-for="Book.CategoryName" readonly="readonly">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="Book.AuthorId">Auhtor *</label>
+                </td>
+                <td>
+                    @*<input asp-for="Book.AuthorId">*@
+                    <select asp-for="Book.AuthorId" asp-items="Model.Authors">
+                    </select>
+                    <span asp-validation-for="Book.AuthorId"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="Book.ReleaseDate">Release Date</label>
+                </td>
+                <td>
+                    <input asp-for="Book.ReleaseDate" type="date">
+                    <span asp-validation-for="Book.ReleaseDate"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="Book.TotalPage">Total Page</label>
+                </td>
+                <td>
+                    <input asp-for="Book.TotalPage">
+                    <span asp-validation-for="Book.TotalPage"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="Book.Summary">Summary</label>
+                </td>
+                <td>
+                    <textarea asp-for="Book.Summary"></textarea>
+                    <span asp-validation-for="Book.Summary"></span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <button type="submit">Submit</button>
+                    <a asp-action="Index" asp-route-name="@Model.Book.CategoryName" class="button">Back To Index</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</form>
